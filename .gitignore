@@ -1,0 +1,4 @@
+venv
+output/*.png
+huggingface
+.idea

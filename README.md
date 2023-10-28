@@ -1,4 +1,4 @@
-# Run latent consistency models on your Mac and Raspberry Pi
+# Run latent consistency models on your Mac
 
 Latent consistency models (LCMs) are based on Stable Diffusion, but they can generate images much faster, needing only 4 to 8 steps for a good image (compared to 25 to 50 steps). [Simian Luo et al](https://arxiv.org/abs/2310.04378) released the first Stable Diffusion distilled model. It’s distilled from the Dreamshaper fine-tune by incorporating classifier-free guidance into the model’s input.
 
@@ -14,12 +14,6 @@ for `main.py` and `m1_app.py`
 - 16GB RAM or more
 - macOS 12.3 or higher
 - Python 3.10 or above
-
-Or
-
-for `rpi_app.py`
-
-- Debian GNU/Linux 11 (bullseye)
 
 ## Install
 

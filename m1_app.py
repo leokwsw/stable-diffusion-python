@@ -8,45 +8,6 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/', methods=['GET'])
-def index():
-    return render_template('index.html')
-
-
-@app.route('/predict', methods=['POST'])
-def predict():
-    data = request.json
-
-    prompt = data['prompt']
-
-    if "width" in data:
-        width = data['width']
-    else:
-        width = 512
-
-    if "height" in data:
-        height = data['height']
-    else:
-        height = 512
-
-    if "steps" in data:
-        steps = data['steps']
-    else:
-        steps = 8
-
-    if "seed" in data:
-        seed = data['seed']
-    else:
-        seed = None
-
-    predictor = Predictor()
-
-    output_path = predictor.predict(prompt, width, height, steps, seed)
-    print(f"Output image saved to: {output_path}")
-
-    # return {'path': output_path}
-    return send_file(output_path, mimetype='image/png')
-
 
 class Predictor:
     def __init__(self):
@@ -84,6 +45,47 @@ class Predictor:
         output_path = os.path.join(output_dir, f"out-{timestamp}.png")
         result.save(output_path)
         return output_path
+
+
+predictor = Predictor()
+
+
+@app.route('/', methods=['GET'])
+def index():
+    return render_template('index.html')
+
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    data = request.json
+
+    prompt = data['prompt']
+
+    if "width" in data:
+        width = data['width']
+    else:
+        width = 512
+
+    if "height" in data:
+        height = data['height']
+    else:
+        height = 512
+
+    if "steps" in data:
+        steps = data['steps']
+    else:
+        steps = 8
+
+    if "seed" in data:
+        seed = data['seed']
+    else:
+        seed = None
+
+    output_path = predictor.predict(prompt, width, height, steps, seed)
+    print(f"Output image saved to: {output_path}")
+
+    # return {'path': output_path}
+    return send_file(output_path, mimetype='image/png')
 
 
 if __name__ == '__main__':
